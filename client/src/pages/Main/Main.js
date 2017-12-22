@@ -9,21 +9,20 @@ import { Input, TextArea, FormBtn } from "../../components/Form";
 
 class Articles extends Component {
   state = {
-    searchterm: "",
-    numberofrecords: 5,
-    startyear: "",
-    endyear: "",
-    articles: [],
-    savedarticles: [],
     biodiversity: [],
     wordtoguess: "",
     displayedword: "",
     // This is the array of user entries
     userGuesses: [],
     userGuessesString: "",
-    lives: 5,
+    lives: 1,
     wins: 0,
     losses: 0,
+    displayedwordwidth: "md-12",
+    wordtoguesswidth: "md-12",
+    showWord: false,
+    displayWord: "display:block;"
+
   };
 
 
@@ -47,9 +46,8 @@ class Articles extends Component {
     // This builds the array of userGuesses
 
     // First option:Check if it was the backspace key pressed
-    if (userGuess === 'backspace') {
-      this.setState({ userGuesses: [] });
-      console.log(alreadyGuessed);
+    if (userGuess === 'backspace' || this.state.lives === 0) {
+      console.log("Invalid character entry!")
       // Second option: has the user already selected this character?
     } else {
       if (alreadyGuessed.indexOf(userGuess) >= 0) {
@@ -130,8 +128,13 @@ class Articles extends Component {
     if (lives === 0) {
       let losses = this.state.losses;
 
-      this.setState({ losses: losses + 1 });
-      this.resetGame();
+      this.setState({ 
+        losses: losses + 1,
+        showWord: true,
+        displayedwordwidth: "md-6",
+        wordtoguesswidth: "md-6",
+      });
+      setTimeout(function() {this.resetGame()}.bind(this),3000);
     }
   }
 
@@ -151,7 +154,10 @@ class Articles extends Component {
         displayedword: "",
         userGuesses: [],
         userGuessesString: "",
-        lives: 5,
+        lives: 9,
+        showWord:false,
+        displayedwordwidth: "md-12",
+        wordtoguesswidth: "md-12",
       }
     )
     this.loadWordToGuess()
@@ -172,7 +178,7 @@ class Articles extends Component {
   }
 
   // Initial load of saved articles
-  componentDidMount() { 
+  componentDidMount() {
     this.loadBiodiversity();
     //this.loadWordToGuess();
   };
@@ -186,9 +192,9 @@ class Articles extends Component {
         let diverlist = res.data;
         let namelist = [];
 
-        for (let n = 0; n< diverlist.length; n++){
+        for (let n = 0; n < diverlist.length; n++) {
           // && namelist.indexOf(diverlist[n]["Common Name"] >= 0)
-          if (diverlist[n]["Category"] === "Animal"){
+          if (diverlist[n]["Category"] === "Animal") {
             namelist.push(diverlist[n]["Common Name"].toLowerCase());
           }
         }
@@ -226,7 +232,7 @@ class Articles extends Component {
 
     // fill the currentlyPicked array with either underscores or spaces
     for (let i = 0; i < wordArray.length; i++) {
-      switch (wordArray[i] !== " " || wordArray[i] !== "-" || wordArray[i] !== "'" ){
+      switch (wordArray[i] !== " " || wordArray[i] !== "-" || wordArray[i] !== "'") {
         case wordArray[i] === "'":
           currentlyPicked.push("'")
           break;
@@ -240,7 +246,7 @@ class Articles extends Component {
           break;
 
         default:
-        currentlyPicked.push("_")
+          currentlyPicked.push("_")
       }
 
 
@@ -297,10 +303,46 @@ class Articles extends Component {
     return (
       <Container fluid>
         <Row>
+          <Jumbotron>
+            <h1>Hangman</h1>
+          </Jumbotron>
+        </Row>
+        <Row>
+          <Col size={this.state.displayedwordwidth}>
+            <div className="panel panel-primary">
+              <div className="panel-heading">
+                <h3 className="panel-title"><strong><i className="fa fa-table"></i>  Word to Guess</strong></h3>
+              </div>
+              <div className="panel-body" id="well-section">
+                <List>
+                  <ListItem>
+                    <h3>{this.state.displayedword}</h3>
+                  </ListItem>
+                </List>
+              </div>
+            </div>
+          </Col>
+          {this.state.showWord ?
+            <Col size={this.state.wordtoguesswidth}>
+              <div className="panel panel-primary">
+                <div className="panel-heading">
+                  <h3 className="panel-title"><strong><i className="fa fa-table"></i>  Word to Guess</strong></h3>
+                </div>
+                <div className="panel-body" id="well-section">
+                  <List>
+                    <ListItem>
+                      <h3>{this.state.wordtoguess}</h3>
+                    </ListItem>
+                  </List>
+                </div>
+              </div>
+            </Col>
+            :
+            null
+          }
+        </Row>
+        <Row>
           <Col size="md-12">
-            <Jumbotron>
-              <h1>Hangman</h1>
-            </Jumbotron>
             <div className="panel panel-primary">
               <div className="panel-heading">
                 <h3 className="panel-title"><strong><i className="fa fa-table"></i>  Stats </strong></h3>
@@ -358,38 +400,8 @@ class Articles extends Component {
 
           </Col>
         </Row >
-        <Row>
-          <Col size="md-12">
-            <div className="panel panel-primary">
-              <div className="panel-heading">
-                <h3 className="panel-title"><strong><i className="fa fa-table"></i>  Word to Guess</strong></h3>
-              </div>
-              <div className="panel-body" id="well-section">
-                <List>
-                  <ListItem>
-                    <h3>{this.state.wordtoguess}</h3>
-                  </ListItem>
-                </List>
-              </div>
-            </div>
-          </Col>
-        </Row>
-        <Row>
-          <Col size="md-12">
-            <div className="panel panel-primary">
-              <div className="panel-heading">
-                <h3 className="panel-title"><strong><i className="fa fa-table"></i>  Word to Guess</strong></h3>
-              </div>
-              <div className="panel-body" id="well-section">
-                <List>
-                  <ListItem>
-                    <h3>{this.state.displayedword}</h3>
-                  </ListItem>
-                </List>
-              </div>
-            </div>
-          </Col>
-        </Row>
+        {/* <Row>
+        </Row> */}
       </Container >
     );
   }
