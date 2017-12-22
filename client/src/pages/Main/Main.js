@@ -15,7 +15,7 @@ class Articles extends Component {
     // This is the array of user entries
     userGuesses: [],
     userGuessesString: "",
-    lives: 1,
+    lives: 9,
     wins: 0,
     losses: 0,
     displayedwordwidth: "md-12",
