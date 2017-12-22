@@ -224,6 +224,7 @@ class Articles extends Component {
     this.setState({
       [name]: value
     });
+    this.readUserInput(event)
   };
 
   //loads a random entry from a selected category
