@@ -30,7 +30,7 @@ mongoose.Promise = global.Promise;
 
 // "mongodb://heroku_cwf2cqkx:8vpi8pekalrvhlae96mahc4ktq@ds153494.mlab.com:53494/heroku_cwf2cqkx"
 
-const mongoConnect = 'mongodb://localhost/hangman_options' || process.env.MONGODB_URI
+const mongoConnect = process.env.MONGODB_URI || 'mongodb://localhost/hangman_options'
 // Connect to the Mongo DB
 mongoose.connect(
   mongoConnect, {
