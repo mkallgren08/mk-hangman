@@ -3,9 +3,10 @@ import Jumbotron from "../../components/Jumbotron";
 import API from "../../utils/API";
 import APINYT from "../../utils/APINYT"
 import DeleteBtn from "../../components/DeleteBtn";
+import {Button, Glyphicon} from "react-bootstrap";
 import { Col, Row, Container } from "../../components/Grid";
 import { List, ListItem } from "../../components/List";
-import { Input, TextArea, FormBtn } from "../../components/Form";
+//import { Input, TextArea, FormBtn } from "../../components/Form";
 
 class Articles extends Component {
   state = {
@@ -33,17 +34,20 @@ class Articles extends Component {
 
   // creating a keystroke function for keyboards
   _handleKeyDown = (event) => {
-    this.readUserInput(event)
+    this.readUserKeyInput(event)
   }
 
   //
 
-  readUserInput = (event) => {
-    let alreadyGuessed = this.state.userGuesses;
+  readUserKeyInput = (event) => {
     let userGuess = event.key.toLowerCase();
     console.log(userGuess);
     let BACKSPACE = 8;
+    this.parseUserInput(userGuess);
+  }
 
+  parseUserInput = (userGuess) => {
+    let alreadyGuessed = this.state.userGuesses;
     // Selection of valid characters for the game
     let characSet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k',
       'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v',
@@ -187,7 +191,6 @@ class Articles extends Component {
   componentDidMount() {
     this.loadBiodiversity();
     //this.loadWordToGuess();
-    document.getElementById("keyboardTrigger").focus();
   };
 
   // code to get biodiversity list
@@ -271,42 +274,6 @@ class Articles extends Component {
     this.setState({ displayedword: currentlyPicked });
   }
 
-
-  // search NYT for articles
-  handleFormSubmit = event => {
-    // When the form is submitted, prevent its default behavior, get recipes update the recipes state
-    event.preventDefault();
-    if (this.state.searchterm) {
-      APINYT.search(this.state.searchterm,
-        this.state.numberofrecords,
-        this.state.startyear,
-        this.state.endyear
-      )
-        .then(res => {
-          this.setState({ articles: res.data.response.docs });
-        })
-        .catch(err => console.log(err));
-    }
-  };
-
-  //save an article
-  handleArticleSave = (data) => {
-    // When the form is submitted, prevent its default behavior, get recipes update the recipes state
-    API.saveArticle(data)
-      .then(res => this.loadSavedArticles())
-      // console.log(res.data.response.docs);
-      .catch(err => console.log(err));
-  };
-
-  // delete a saved article
-  handleArticleDelete = (id) => {
-    // When the form is submitted, prevent its default behavior, get recipes update the recipes state
-    API.deleteArticle(id)
-      .then(res => this.loadSavedArticles())
-      // console.log(res.data.response.docs);
-      .catch(err => console.log(err));
-  };
-
   render() {
     return (
       <Container fluid>
@@ -376,7 +343,10 @@ class Articles extends Component {
                             {this.state.userGuesses.length ? (
                               <h4> {this.state.userGuessesString} </h4>
                             ) : (
-                                <h3>Use Your Keyboard to Enter Guesses!</h3>
+                                <Button >
+                                  <Glyphicon glyph = "hand-down" />
+                                  <h3>Use Your Keyboard to Enter Guesses!</h3>
+                                </Button>
                               )}
                           </div>
                         </div>
