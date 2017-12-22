@@ -390,68 +390,6 @@ class Articles extends Component {
             </div>
           </Col>
         </Row>
-        <Row>
-          <Col size="md-12">
-            <div className="panel panel-primary">
-              <div className="panel-heading">
-                <h3 className="panel-title"><strong><i className="fa fa-table"></i>  Top Articles</strong></h3>
-              </div>
-              <div className="panel-body" id="well-section">
-                {this.state.articles.length ? (
-                  <List>
-                    {this.state.articles.slice(0, this.state.numberofrecords).map((article, index) => (
-                      <ListItem key={article.pub_date}>
-                        <h3>{article.headline.main}</h3>
-                        <a href={article.web_url}>{article.web_url} </a>
-                        <h3>{article.pub_date}</h3>
-                        <button type="submit"
-                          className="btn btn-default"
-                          onClick={() => this.handleArticleSave({
-                            title: article.headline.main,
-                            url: article.web_url,
-                            date: article.pub_date
-                          })}
-                          id="saveArticle"><i className="fa fa-search"></i> Save</button>
-                      </ListItem>
-                    ))}
-                  </List>
-                ) : (
-                    <h3>No Results to Display</h3>
-                  )}
-              </div>
-            </div>
-          </Col>
-        </Row>
-        {/* Saved Articles */}
-        <Row>
-          <Col size="md-12">
-
-            <div className="panel panel-primary">
-              <div className="panel-heading">
-                <h3 className="panel-title"><strong><i className="fa fa-table"></i>  Saved Articles</strong></h3>
-              </div>
-              <div className="panel-body" id="well-section">
-                {this.state.savedarticles.length ? (
-                  <List>
-                    {this.state.savedarticles.map((article, index) => (
-                      <ListItem key={article._id}>
-                        <h3>{article.title}</h3>
-                        <a href={article.url}>{article.url} </a>
-                        <h3>{article.date}</h3>
-                        <button type="submit"
-                          className="btn btn-default"
-                          onClick={() => this.handleArticleDelete(article._id)}
-                          id="deleteArticle"><i className="fa fa-search"></i> Delete</button>
-                      </ListItem>
-                    ))}
-                  </List>
-                ) : (
-                    <h3>No Results to Display</h3>
-                  )}
-              </div>
-            </div>
-          </Col>
-        </Row>
       </Container >
     );
   }
