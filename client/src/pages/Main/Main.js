@@ -31,8 +31,14 @@ class Articles extends Component {
 
   //https://stackoverflow.com/questions/10710345/finding-all-indexes-of-a-specified-character-within-a-string
 
-  // creating a keystroke function
+  // creating a keystroke function for keyboards
   _handleKeyDown = (event) => {
+    this.readUserInput(event)
+  }
+
+  //
+
+  readUserInput = (event) => {
     let alreadyGuessed = this.state.userGuesses;
     let userGuess = event.key.toLowerCase();
     console.log(userGuess);
@@ -181,6 +187,7 @@ class Articles extends Component {
   componentDidMount() {
     this.loadBiodiversity();
     //this.loadWordToGuess();
+    document.getElementById("keyboardTrigger").focus();
   };
 
   // code to get biodiversity list
@@ -210,14 +217,14 @@ class Articles extends Component {
 
 
   // handle form input
-  handleInputChange = event => {
-    // Destructure the name and value properties off of event.target
-    // Update the appropriate state
-    const { name, value } = event.target;
-    this.setState({
-      [name]: value
-    });
-  };
+  // handleInputChange = event => {
+  //   // Destructure the name and value properties off of event.target
+  //   // Update the appropriate state
+  //   const { name, value } = event.target;
+  //   this.setState({
+  //     [name]: value
+  //   });
+  // };
 
   //loads a random entry from a selected category
   //for testing purposes now, using a static entry
@@ -319,6 +326,7 @@ class Articles extends Component {
                     <h3>{this.state.displayedword}</h3>
                   </ListItem>
                 </List>
+                <input id = "keyboardTrigger"/>
               </div>
             </div>
           </Col>

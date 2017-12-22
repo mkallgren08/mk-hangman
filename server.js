@@ -30,7 +30,7 @@ mongoose.Promise = global.Promise;
 
 // "mongodb://heroku_cwf2cqkx:8vpi8pekalrvhlae96mahc4ktq@ds153494.mlab.com:53494/heroku_cwf2cqkx"
 
-const mongoConnect = 'mongodb://heroku_sr0qfrxc:qhn4m67jklichtdsfrms7rnta9@ds157653.mlab.com:57653/heroku_sr0qfrxc' || 'mongodb://localhost/hangman_options'
+let mongoConnect =  'mongodb://localhost/hangman_options' || 'mongodb://heroku_sr0qfrxc:qhn4m67jklichtdsfrms7rnta9@ds157653.mlab.com:57653/heroku_sr0qfrxc'
 // Connect to the Mongo DB
 mongoose.connect(
   mongoConnect, {
