@@ -294,7 +294,6 @@ class Articles extends Component {
                     <h3>{this.state.displayedword}</h3>
                   </ListItem>
                 </List>
-                <input id = "keyboardTrigger"/>
               </div>
             </div>
           </Col>
