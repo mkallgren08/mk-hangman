@@ -217,14 +217,14 @@ class Articles extends Component {
 
 
   // handle form input
-  // handleInputChange = event => {
-  //   // Destructure the name and value properties off of event.target
-  //   // Update the appropriate state
-  //   const { name, value } = event.target;
-  //   this.setState({
-  //     [name]: value
-  //   });
-  // };
+  handleInputChange = event => {
+    // Destructure the name and value properties off of event.target
+    // Update the appropriate state
+    const { name, value } = event.target;
+    this.setState({
+      [name]: value
+    });
+  };
 
   //loads a random entry from a selected category
   //for testing purposes now, using a static entry
