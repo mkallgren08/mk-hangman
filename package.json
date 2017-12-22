@@ -1,7 +1,7 @@
 {
-  "name": "mern",
+  "name": "hangman",
   "version": "1.0.0",
-  "description": "Mern Demo",
+  "description": "hangman game written using MERN stack",
   "main": "server.js",
   "scripts": {
     "server": "node server.js",
