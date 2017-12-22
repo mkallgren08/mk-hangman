@@ -1,14 +1,12 @@
 import React from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import Articles from "./pages/Articles";
+import Main from "./pages/Main";
 
 const App = () => (
   <Router>
   <div>
-    <Route exact path="/" component={Articles} />
-    <Route exact path="/articles" component={Articles} />
-    <Route exact path="/biodiversity" component={Articles} />
-    <Route exact path="/articles/:id" component={Articles} />
+    <Route exact path="/" component={Main} />
+    <Route exact path="/biodiversity" component={Main} />
     {/* <Articles /> */}
   </div>
   </Router>
