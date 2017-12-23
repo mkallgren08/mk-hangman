@@ -200,6 +200,13 @@ class Articles extends Component {
       this._handleKeyDown.bind(this)
     )
 
+    console.log(window.matchMedia("max-width:780px").matches)
+    if (window.matchMedia("(max-width: 780px)").matches) {
+      this.setState({isMobile:true})
+      console.log("this is a mobile device")
+    } else {
+      console.log("this isn't a mobile device")
+    }
 
   }
 
