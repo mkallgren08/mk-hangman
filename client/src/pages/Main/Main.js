@@ -197,6 +197,12 @@ class Articles extends Component {
       this._handleKeyDown.bind(this)
     )
 
+
+  }
+
+  // Initial load of saved articles
+  componentDidMount() {
+    console.log(this.state.isMobile)
     // From: https://stackoverflow.com/questions/11381673/detecting-a-mobile-browser
     window.mobileAndTabletcheck = function () {
       (function (a) {
@@ -205,11 +211,6 @@ class Articles extends Component {
       })
       //(navigator.userAgent || navigator.vendor || window.opera);
     };
-  }
-
-  // Initial load of saved articles
-  componentDidMount() {
-    console.log(this.state.isMobile)
     this.loadBiodiversity();
     //this.loadWordToGuess();
   };
