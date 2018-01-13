@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 import Jumbotron from "../../components/Jumbotron";
 import API from "../../utils/API";
-import APINYT from "../../utils/APINYT"
 import DeleteBtn from "../../components/DeleteBtn";
-import { Button, Glyphicon } from "react-bootstrap";
+import { Button, Glyphicon, Navbar } from "react-bootstrap";
 import { Col, Row, Container } from "../../components/Grid";
 import { List, ListItem } from "../../components/List";
+import Nav2 from "../../components/Nav2";
 //import { Input, TextArea, FormBtn } from "../../components/Form";
 
-class Articles extends Component {
+class MainPage extends Component {
   state = {
     // List of animals that are randomly selected for guessing
     biodiversity: [],
@@ -74,19 +74,27 @@ class Articles extends Component {
     this.parseUserInput(userGuess);
   }
 
+  readButtonInput = (event) => {
+    let userGuess = event.target.value;
+    console.log(userGuess);
+    this.parseUserInput(userGuess);
+  }
+
 
   // Parses user guesses, be they button clicks or keyboard strokes.
   parseUserInput = (input) => {
+    console.log("Starting input parsing: ")
     let userGuess = input;
-    if (userGuess.target.value) {
-      console.log(userGuess.target.value)
-      userGuess = userGuess.target.value
+    console.log(userGuess)
+    if (userGuess.value !== undefined) {
+      console.log(userGuess.value)
+      userGuess = userGuess.value
     }
     let alreadyGuessed = this.state.userGuesses;
     // This builds the array of userGuesses
 
     // First option:Check if it was the backspace key pressed
-    if (userGuess === 'backspace' || this.state.lives === 0) {
+    if (userGuess === 'backspace' /*|| this.state.lives === 0*/) {
       console.log("Invalid character entry!")
       // Second option: has the user already selected this character?
     } else {
@@ -228,7 +236,7 @@ class Articles extends Component {
     } else {
       console.log("this isn't a mobile device")
     }
-
+    console.log(this.props.auth);
   }
 
   // Initial load of saved articles
@@ -332,6 +340,9 @@ class Articles extends Component {
 
     return (
       <Container fluid>
+         <Row>
+          <Nav2 auth = {this.props.auth}/> 
+        </Row> 
         <Row>
           <Jumbotron>
             <h1>Hangman</h1>
@@ -386,7 +397,7 @@ class Articles extends Component {
                       <div>
                         {this.state.characSet.map((letter, index) => (
 
-                          <Button key={letter} value={letter} onClickCapture={this.parseUserInput} >
+                          <Button key={letter} value={letter} onClickCapture={this.readButtonInput} >
                             {letter}
                           </Button>
                         ))}
@@ -451,4 +462,4 @@ class Articles extends Component {
   }
 }
 
-export default Articles;
+export default MainPage;
