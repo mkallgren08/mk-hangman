@@ -8,13 +8,22 @@ import Auth from '../../Auth/Auth.js';
 // const auth = new Auth();
 // auth.login();
 
+//const history = require('history')
+
 const auth = new Auth();
 
 
 class Nav2 extends Component {
+  componentDidMount() {
+    console.log('History object: ' + JSON.stringify(history, 2, null));
+    console.log('this.history: ' + this.history)
+    console.log(history.replace)
+    console.log('this.props.history: ' + this.props.history)
+  }
 
   goTo(route) {
-    this.props.history.replace(`/${route}`)
+    //this.props.history.replace(`/${route}`)
+    history.replace(`/${route}`)
   }
 
   login() {
@@ -43,28 +52,39 @@ class Nav2 extends Component {
               Home
             </Button>
             {
-              !isAuthenticated() && (
-                  <Button
-                    id="qsLoginBtn"
-                    bsStyle="primary"
-                    className="btn-margin"
-                    onClick={this.login.bind(this)}
-                  >
-                    Log In
+              isAuthenticated() && (
+                <Button
+                  bsStyle="primary"
+                  className="btn-margin"
+                  onClick={this.goTo.bind(this, 'profile')}
+                >
+                  Profile
                   </Button>
-                )
+              )
+            }
+            {
+              !isAuthenticated() && (
+                <Button
+                  id="qsLoginBtn"
+                  bsStyle="primary"
+                  className="btn-margin"
+                  onClick={this.login.bind(this)}
+                >
+                  Log In
+                  </Button>
+              )
             }
             {
               isAuthenticated() && (
-                  <Button
-                    id="qsLogoutBtn"
-                    bsStyle="primary"
-                    className="btn-margin"
-                    onClick={this.logout.bind(this)}
-                  >
-                    Log Out
+                <Button
+                  id="qsLogoutBtn"
+                  bsStyle="primary"
+                  className="btn-margin"
+                  onClick={this.logout.bind(this)}
+                >
+                  Log Out
                   </Button>
-                )
+              )
             }
           </Navbar.Header>
         </Navbar>

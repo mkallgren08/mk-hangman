@@ -1,11 +1,17 @@
 import React from "react";
-import { Router, Route } from "react-router-dom";
-import Main from "./pages/Main";
+import { Redirect, Router, Route } from "react-router-dom";
 import App from "./App.js";
-import TestPage from "./pages/TestPage"
 import Callback from './Callback/Callback';
 import Auth from './Auth/Auth';
 import history from './history.js';
+
+// =======================
+// PAGES
+// =======================
+import Main from "./pages/Main";
+import TestPage from "./pages/TestPage"
+import Profile from "./pages/Profile"
+
 
 const auth = new Auth();
 
@@ -27,6 +33,13 @@ export const makeMainRoutes = () => {
           handleAuthentication(props);
           return <Callback {...props} />
         }} />
+        <Route path="/profile" render={(props) => (
+          !auth.isAuthenticated() ? (
+            <Redirect to="/main" />
+          ) : (
+              <Profile auth={auth} {...props} />
+            )
+        )} />
         {/* <Articles /> */}
       </div>
     </Router>

@@ -241,7 +241,7 @@ class MainPage extends Component {
 
   // Initial load of saved articles
   componentDidMount() {
-    console.log(this.state.isMobile)
+    //console.log(this.state.isMobile)
     // From: https://stackoverflow.com/questions/11381673/detecting-a-mobile-browser
     // This is a regex I found that seems to be hit-or-miss on detecting whether or not a user
     // is on a mobile device or not.
