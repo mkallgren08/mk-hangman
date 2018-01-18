@@ -21,25 +21,58 @@ const handleAuthentication = ({ location }) => {
   }
 }
 
+const renderMergedProps = (component, ...rest) => {
+  const finalProps = Object.assign({}, ...rest);
+  return (
+    React.createElement(component, finalProps)
+  );
+}
+
+const PropsRoute = ({ component, ...rest }) => {
+  return (
+    <Route {...rest} render={routeProps => {
+      return renderMergedProps(component, routeProps, rest);
+    }}/>
+  );
+}
+
+const PrivateRoute = ({ component, redirectTo, ...rest }) => {
+  return (
+    <Route {...rest} render={routeProps => {
+      return auth.loggedIn() ? (
+        renderMergedProps(component, routeProps, rest)
+      ) : (
+        <Redirect to={{
+          pathname: redirectTo,
+          state: { from: routeProps.location }
+        }}/>
+      );
+    }}/>
+  );
+};
+
+
+
 export const makeMainRoutes = () => {
   return (
     <Router history={history}>
       <div>
-        <Route path="/" render={(props) => <Main auth={auth} {...props} />} />
-        <Route path="/main" render={(props) => <Main auth={auth} {...props} />} />
-        <Route path="/biodiversity" render={(props) => <Main auth={auth} {...props} />} />
-        <Route path="/test" render={(props) => <TestPage auth={auth} {...props} />} />
-        <Route path="/callback" render={(props) => {
+        <Route exact path={"/"} render={(props) => <Main auth={auth} {...props} />} />
+        <Route exact path={"/home"} render={(props) => <Main auth={auth} {...props} />} />
+        <Route exact path={ "/biodiversity" } render={(props) => <Main auth={auth} {...props} />} />
+        <Route exact path={"/test"} render={(props) => <TestPage auth={auth} {...props} />} />
+        <Route exact path={"/callback"} render={(props) => {
           handleAuthentication(props);
           return <Callback {...props} />
         }} />
-        <Route path="/profile" render={(props) => (
+        <Route exact path={"/profile"} render={(props) => (
           !auth.isAuthenticated() ? (
-            <Redirect to="/main" />
+            <Redirect to="/home" />
           ) : (
               <Profile auth={auth} {...props} />
             )
         )} />
+        {/* <PrivateRoute path='/profile' component={Profile} redirectTo="/main" auth={auth} /> */}
         {/* <Articles /> */}
       </div>
     </Router>
