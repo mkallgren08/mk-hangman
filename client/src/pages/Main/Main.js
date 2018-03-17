@@ -387,7 +387,7 @@ class Articles extends Component {
         </Row>
         <Row>
           <Col size={this.state.displayedwordwidth}>
-            <div className="panel panel-primary">
+            <div className="panel panel-default">
               <div className="panel-heading">
                 <h3 className="panel-title"><strong><i className="fa fa-table"></i>  Word to Guess</strong></h3>
               </div>
@@ -398,7 +398,7 @@ class Articles extends Component {
           </Col>
           {this.state.showWord ?
             <Col size={this.state.wordtoguesswidth}>
-              <div className="panel panel-primary">
+              <div className="panel panel-default">
                 <div className="panel-heading">
                   <h3 className="panel-title"><strong><i className="fa fa-table"></i>  Word to Guess</strong></h3>
                 </div>
@@ -417,7 +417,7 @@ class Articles extends Component {
         </Row>
         <Row>
           <Col size="md-12">
-            <div className="panel panel-primary">
+            <div className="panel panel-default">
               <div className="panel-heading">
                 <h3 className="panel-title"><strong><i className="fa fa-table"></i>  Stats </strong></h3>
               </div>
@@ -440,7 +440,7 @@ class Articles extends Component {
                           <div className="keyboardRow">
                             {keyboard.secondRow.map((letter, index) => (
 
-                              <Button key={letter} value={letter} onClickCapture={this.readBtnInput} >
+                              <Button key={letter} value={letter} onClickCapture={this.readBtnInput} className="keyboardBtn">
                                 {letter}
                               </Button>
                             ))}
@@ -448,7 +448,7 @@ class Articles extends Component {
                           <div className="keyboardRow">
                             {keyboard.thirdRow.map((letter, index) => (
 
-                              <Button key={letter} value={letter} onClickCapture={this.readBtnInput} >
+                              <Button key={letter} value={letter} onClickCapture={this.readBtnInput} className="keyboardBtn">
                                 {letter}
                               </Button>
                             ))}

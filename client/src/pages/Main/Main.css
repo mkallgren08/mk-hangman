@@ -3,11 +3,23 @@
     width: auto;
 }
 
+.panel-title{
+    color: white;
+}
+
 #keyboard{
     grid-area: keyboard;
     display: grid;
     justify-items: center;
+    min-width: 459px;
     
+}
+
+.keyboardBtn{
+    margin: 2px;
+    font-size: 26px;
+    line-height: 28px;
+    border-width: 2px;
 }
 
 .keyboardRow{
@@ -17,7 +29,7 @@
 
 #keyboardWrapper{
     display: grid;
-    grid-template-columns: 15px auto 15px;
+    grid-template-columns: 5px auto 5px;
     grid-template-rows: 15px auto 15px;
     grid-template-areas: 
         ". . ."
@@ -25,3 +37,22 @@
         ". . .";
     
 }
+
+@media screen and (max-width:580px){
+    html{
+        min-width: 458px;
+    }
+    
+    #keyboard{
+        min-width: 300px;
+        
+    }
+
+
+    .keyboardBtn{
+        margin: 1px;
+        font-size: 20px;
+        line-height: 22px;
+        border-width: 1px;
+    }
+} 
