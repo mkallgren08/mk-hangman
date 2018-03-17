@@ -9,6 +9,8 @@ import { List, ListItem } from "../../components/List";
 import "./Main.css"
 //import { Input, TextArea, FormBtn } from "../../components/Form";
 
+let loadingIcon = require('../../images/loading-icon.gif')
+
 let hangmen = [
   require('../../images/Hangman-0.jpg'),
   require('../../images/Hangman-11.jpg'),
@@ -39,6 +41,9 @@ class Articles extends Component {
 
     // Word that is loaded behind the scenes 
     wordtoguess: "",
+
+    //Checks if word is loaded
+    isLoaded: false,
 
     // Word that the user sees on the screen
     displayedword: "",
@@ -247,7 +252,8 @@ class Articles extends Component {
         showWord: false,
         displayedwordwidth: "md-12",
         wordtoguesswidth: "md-12",
-        imgURL: hangmen[0]
+        imgURL: hangmen[0],
+        isLoaded: false
       }
     )
     this.loadWordToGuess()
@@ -371,8 +377,12 @@ class Articles extends Component {
 
     console.log(currentlyPicked)
     //currentlyPicked = wordArray.fill("_");
-    this.setState({ wordtoguess: word });
-    this.setState({ displayedword: currentlyPicked });
+    this.setState({
+      wordtoguess: word,
+      displayedword: currentlyPicked,
+      isLoaded: true
+    });
+    // this.setState({ displayedword: currentlyPicked });
   };
 
   // This is the function that renders the page in the client's window.
@@ -386,13 +396,17 @@ class Articles extends Component {
           </Jumbotron>
         </Row>
         <Row>
-          <Col size={this.state.displayedwordwidth}>
+          <Col size={this.state.wordtoguesswidth}>
             <div className="panel panel-default">
               <div className="panel-heading">
                 <h3 className="panel-title"><strong><i className="fa fa-table"></i>  Word to Guess</strong></h3>
               </div>
               <div className="panel-body" id="well-section">
-                <h3>{this.state.displayedword}</h3>
+                {this.state.isLoaded ? (
+                  <h3>{this.state.displayedword}</h3>
+                ) : (
+                    <span className="loading-label">Loading <img src={loadingIcon} alt="Loading word" className="loading-icon" /></span>
+                  )}
               </div>
             </div>
           </Col>
@@ -403,16 +417,11 @@ class Articles extends Component {
                   <h3 className="panel-title"><strong><i className="fa fa-table"></i>  Word to Guess</strong></h3>
                 </div>
                 <div className="panel-body" id="well-section">
-                  <List>
-                    <ListItem>
-                      <h3>{this.state.wordtoguess}</h3>
-                    </ListItem>
-                  </List>
+                    <h3>{this.state.wordtoguess}</h3>
                 </div>
               </div>
             </Col>
-            :
-            null
+            : null
           }
         </Row>
         <Row>
