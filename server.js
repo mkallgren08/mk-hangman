@@ -32,7 +32,9 @@ mongoose.Promise = global.Promise;
 
 //  'mongodb://localhost/hangman_options' ||
 
-let mongoConnect = 'mongodb://localhost:27017/hangmandb' ||'mongodb://heroku_sr0qfrxc:qhn4m67jklichtdsfrms7rnta9@ds157653.mlab.com:57653/heroku_sr0qfrxc'
+//'mongodb://localhost:27017/hangmandb' ||
+
+let mongoConnect = 'mongodb://heroku_sr0qfrxc:qhn4m67jklichtdsfrms7rnta9@ds157653.mlab.com:57653/heroku_sr0qfrxc'
 // Connect to the Mongo DB
 mongoose.connect(
   mongoConnect, {

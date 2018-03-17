@@ -104,7 +104,12 @@ class Articles extends Component {
   readBtnInput = (userGuess) => {
     console.log(userGuess.target.value);
     let btnInput = userGuess.target.value;
-    this.parseUserInput(btnInput)
+
+    if (this.state.wordtoguess.length > 0) {
+      this.parseUserInput(btnInput);
+    } else {
+      console.log("The word has not loaded quite yet!")
+    }
   }
 
 
