@@ -1,0 +1,27 @@
+#hangman-pic{
+    height: 400px;
+    width: auto;
+}
+
+#keyboard{
+    grid-area: keyboard;
+    display: grid;
+    justify-items: center;
+    
+}
+
+.keyboardRow{
+    align-self: center;
+    justify-self: center;
+}
+
+#keyboardWrapper{
+    display: grid;
+    grid-template-columns: 15px auto 15px;
+    grid-template-rows: 15px auto 15px;
+    grid-template-areas: 
+        ". . ."
+        ". keyboard ."
+        ". . .";
+    
+}
