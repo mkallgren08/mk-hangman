@@ -1,8 +1,8 @@
 {
-  "main.css": "static/css/main.6daa6628.css",
-  "main.css.map": "static/css/main.6daa6628.css.map",
-  "main.js": "static/js/main.c65b9d91.js",
-  "main.js.map": "static/js/main.c65b9d91.js.map",
+  "main.css": "static/css/main.fe186ceb.css",
+  "main.css.map": "static/css/main.fe186ceb.css.map",
+  "main.js": "static/js/main.59e5226f.js",
+  "main.js.map": "static/js/main.59e5226f.js.map",
   "static\\media\\Hangman-0.jpg": "static/media/Hangman-0.03b86c23.jpg",
   "static\\media\\Hangman-11.jpg": "static/media/Hangman-11.7b62cead.jpg",
   "static\\media\\Hangman-22.jpg": "static/media/Hangman-22.eb7487fe.jpg",
@@ -12,5 +12,6 @@
   "static\\media\\Hangman-66.jpg": "static/media/Hangman-66.fdd53164.jpg",
   "static\\media\\Hangman-77.jpg": "static/media/Hangman-77.6a860ec5.jpg",
   "static\\media\\Hangman-88.jpg": "static/media/Hangman-88.46a37fb3.jpg",
-  "static\\media\\Hangman-full.jpg": "static/media/Hangman-full.14295ba3.jpg"
+  "static\\media\\Hangman-full.jpg": "static/media/Hangman-full.14295ba3.jpg",
+  "static\\media\\loading-icon.gif": "static/media/loading-icon.b2ad93b8.gif"
 }
