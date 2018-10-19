@@ -1,15 +1,12 @@
 import React, { Component } from "react";
 import Jumbotron from "../../components/Jumbotron";
 import API from "../../utils/API";
-import APINYT from "../../utils/APINYT"
-import DeleteBtn from "../../components/DeleteBtn";
 import { Button, Glyphicon } from "react-bootstrap";
 import { Col, Row, Container } from "../../components/Grid";
-import { List, ListItem } from "../../components/List";
 import "./Main.css"
 //import { Input, TextArea, FormBtn } from "../../components/Form";
 
-let loadingIcon = require('../../images/loading-icon.gif')
+let loadingIcon = require('../../images/loading-icon.gif');
 
 let hangmen = [
   require('../../images/Hangman-0.jpg'),
@@ -33,46 +30,34 @@ class Articles extends Component {
   state = {
     // List of animals that are randomly selected for guessing
     biodiversity: [],
-
-    // Valid character set
+    // Valid character set; i.e. keyboard entries that the program will accept
     characSet: ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', 'a',
       's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'z', 'x',
       'c', 'v', 'b', 'n', 'm'],
-
     // Word that is loaded behind the scenes 
     wordtoguess: "",
-
     //Checks if word is loaded
     isLoaded: false,
-
     // Word that the user sees on the screen
     displayedword: "",
-
     // Array of user entries
     userGuesses: [],
-
     userGuessesString: "",
-
     // Number of lives
     lives: 9,
-
     // Number of wins
     wins: 0,
-
     // Number of losses
     losses: 0,
-
-
+    // variable for controlling the width of the display
     displayedwordwidth: "md-12",
     wordtoguesswidth: "md-12",
-
     // Boolean for showing or hiding the word that the user must guess
     showWord: false,
     displayWord: "display:block;",
-
     // Boolean for declaring the page setup as a mobile layout or a desktop layout.
     isMobile: false,
-
+    // variable for showing which hangman picture to use in the hangman box
     imgURL: hangmen[0]
 
   };
@@ -399,7 +384,7 @@ class Articles extends Component {
           <Col size={this.state.wordtoguesswidth}>
             <div className="panel panel-default">
               <div className="panel-heading">
-                <h3 className="panel-title"><strong><i className="fa fa-table"></i>  Word to Guess</strong></h3>
+                <h3 className="panel-title"><strong>  Word to Guess</strong></h3>
               </div>
               <div className="panel-body" id="well-section">
                 {this.state.isLoaded ? (
@@ -408,13 +393,42 @@ class Articles extends Component {
                     <span className="loading-label">Loading <img src={loadingIcon} alt="Loading word" className="loading-icon" /></span>
                   )}
               </div>
+              {this.state.isMobile ? (
+                <div id="keyboardWrapper">
+                  <div id="keyboard">
+                    <div className="keyboardRow">
+                      {keyboard.firstRow.map((letter, index) => (
+                        <Button key={letter} value={letter} onClickCapture={this.readBtnInput} className="keyboardBtn">
+                          {letter}
+                        </Button>
+                      ))}
+                    </div>
+                    <div className="keyboardRow">
+                      {keyboard.secondRow.map((letter, index) => (
+                        <Button key={letter} value={letter} onClickCapture={this.readBtnInput} className="keyboardBtn">
+                          {letter}
+                        </Button>
+                      ))}
+                    </div>
+                    <div className="keyboardRow">
+                      {keyboard.thirdRow.map((letter, index) => (
+                        <Button key={letter} value={letter} onClickCapture={this.readBtnInput} className="keyboardBtn">
+                          {letter}
+                        </Button>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+                ) : (
+                  null
+              )}
             </div>
           </Col>
           {this.state.showWord ?
             <Col size={this.state.wordtoguesswidth}>
               <div className="panel panel-default">
                 <div className="panel-heading">
-                  <h3 className="panel-title"><strong><i className="fa fa-table"></i>  Word to Guess</strong></h3>
+                  <h3 className="panel-title"><strong>  Word to Guess</strong></h3>
                 </div>
                 <div className="panel-body" id="well-section">
                     <h3>{this.state.wordtoguess}</h3>
@@ -422,52 +436,17 @@ class Articles extends Component {
               </div>
             </Col>
             : null
-          }
+          };
         </Row>
         <Row>
           <Col size="md-12">
             <div className="panel panel-default">
               <div className="panel-heading">
-                <h3 className="panel-title"><strong><i className="fa fa-table"></i>  Stats </strong></h3>
+                <h3 className="panel-title"><strong>  Stats </strong></h3>
               </div>
               <div className="panel-body">
                 <Row>
                   <Col size="md-6">
-                    {/* Hangman Pic Goes Here */}
-                    {/* onClick = {console.log(letter)} */}
-                    {this.state.isMobile ? (
-                      <div id="keyboardWrapper">
-                        <div id="keyboard">
-                          <div className="keyboardRow">
-                            {keyboard.firstRow.map((letter, index) => (
-
-                              <Button key={letter} value={letter} onClickCapture={this.readBtnInput} className="keyboardBtn">
-                                {letter}
-                              </Button>
-                            ))}
-                          </div>
-                          <div className="keyboardRow">
-                            {keyboard.secondRow.map((letter, index) => (
-
-                              <Button key={letter} value={letter} onClickCapture={this.readBtnInput} className="keyboardBtn">
-                                {letter}
-                              </Button>
-                            ))}
-                          </div>
-                          <div className="keyboardRow">
-                            {keyboard.thirdRow.map((letter, index) => (
-
-                              <Button key={letter} value={letter} onClickCapture={this.readBtnInput} className="keyboardBtn">
-                                {letter}
-                              </Button>
-                            ))}
-                          </div>
-                        </div>
-                      </div>
-                    ) : (
-                        null
-                      )}
-                    <h2> Hangman Pic Goes here </h2>
                     <div>
                       <img src={this.state.imgURL} alt="Hangman image" id="hangman-pic" />
                     </div>
@@ -479,7 +458,7 @@ class Articles extends Component {
                         <div className="panel panel-secondary">
                           <div className="panel-heading">
                             <h3 className="panel-title">
-                              <strong><i className="fa fa-table"></i> List of Current Guesses </strong>
+                              <strong> List of Current Guesses </strong>
                             </h3>
                           </div>
                           <div className="panel-body">
