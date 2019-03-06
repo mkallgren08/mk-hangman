@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Keyboard from "../../components/Keyboard";
 import Jumbotron from "../../components/Jumbotron";
 import API from "../../utils/API";
 import { Button, Glyphicon } from "react-bootstrap";
@@ -26,7 +27,7 @@ let keyboard = {
   secondRow: ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l'],
   thirdRow: ['z', 'x', 'c', 'v', 'b', 'n', 'm']
 }
-class Articles extends Component {
+class Hangman extends Component {
   state = {
     // List of animals that are randomly selected for guessing
     biodiversity: [],
@@ -61,11 +62,6 @@ class Articles extends Component {
     imgURL: hangmen[0]
 
   };
-
-
-
-
-
   //https://stackoverflow.com/questions/10710345/finding-all-indexes-of-a-specified-character-within-a-string
 
   // creating a keystroke function for keyboards
@@ -81,15 +77,12 @@ class Articles extends Component {
   }
 
   readUserKeyInput = (userGuess) => {
-
-    let BACKSPACE = 8;
     if (this.state.wordtoguess.length > 0) {
       this.parseUserInput(userGuess);
     } else {
       console.log("The word has not loaded quite yet!")
     }
-
-  }
+  };
 
   readBtnInput = (userGuess) => {
     console.log(userGuess.target.value);
@@ -106,7 +99,6 @@ class Articles extends Component {
   // Parses user guesses, be they button clicks or keyboard strokes.
   parseUserInput = (input) => {
     let userGuess = input;
-
     // if (userGuess.target.value) {
     //   console.log(userGuess.target.value)
     //   userGuess = userGuess.target.value
@@ -339,22 +331,18 @@ class Articles extends Component {
     console.log(wordArray);
     //declare an empty array for us to push our "_" symbols to
     let currentlyPicked = []
-
     // fill the currentlyPicked array with either underscores, spaces, or special characters
     for (let i = 0; i < wordArray.length; i++) {
       switch (wordArray[i] !== " " || wordArray[i] !== "-" || wordArray[i] !== "'") {
         case wordArray[i] === "'":
           currentlyPicked.push("'")
           break;
-
         case wordArray[i] === "-":
           currentlyPicked.push("-")
           break;
-
         case wordArray[i] === " ":
           currentlyPicked.push(" ")
           break;
-
         default:
           currentlyPicked.push("_")
       }
@@ -379,6 +367,7 @@ class Articles extends Component {
           <Jumbotron>
             <h1>Hangman</h1>
           </Jumbotron>
+          <Keyboard passedData={this.state} readBtn={this.readBtnInput} />
         </Row>
         <Row>
           <Col size={this.state.wordtoguesswidth}>
@@ -387,6 +376,7 @@ class Articles extends Component {
                 <h3 className="panel-title"><strong>  Word to Guess</strong></h3>
               </div>
               <div className="panel-body" id="well-section">
+
                 {this.state.isLoaded ? (
                   <h3>{this.state.displayedword}</h3>
                 ) : (
@@ -506,4 +496,4 @@ class Articles extends Component {
   }
 }
 
-export default Articles;
+export default Hangman;
